@@ -8,30 +8,30 @@ Proyek ini bertujuan untuk memanfaatkan kekuatan ekosistem Hadoop, Apache Spark,
 ## 📌 Daftar Isi
 Navigasi cepat ke berbagai bagian penting dalam dokumentasi proyek ini:
 
-* [🌟 1. Latar Belakang Masalah](#latar-belakang-masalah)
-* [🎯 2. Tujuan Proyek](#tujuan-proyek)
-* [🛠️ 3. Lingkup Sistem](#lingkup-sistem)
-* [📊 4. Dataset yang Digunakan](#dataset-yang-digunakan)
-* [🏗️ 5. Arsitektur Sistem](#arsitektur-sistem)
-* [💻 6. Teknologi yang Digunakan](#teknologi-yang-digunakan)
-* [🗺️ 7. Metodologi Proyek](#metodologi-proyek)
-* [🔬 8. Kajian Analitik & Fitur Unggulan](#kajian-analitik--fitur-unggulan)
-* [📂 9. Struktur Repositori](#struktur-repositori)
-    * [📄 9.1. `00_project_documentation/`](#00_project_documentation)
-    * [📥 9.2. `01_data_acquisition/`](#01_data_acquisition)
-    * [🐳 9.3. `02_infrastructure_setup/`](#02_infrastructure_setup)
-    * [🔄 9.4. `03_data_processing_pipeline/`](#03_data_processing_pipeline)
-    * [📈 9.5. `04_exploratory_data_analysis/`](#04_exploratory_data_analysis)
-    * [🧠 9.6. `05_model_development/`](#05_model_development)
-    * [🖼️ 9.7. `06_visualization_dashboard/`](#06_visualization_dashboard)
-    * [🚀 9.8. `07_deployment_and_results/`](#07_deployment_and_results)
-* [⚙️ 10. Instalasi & Konfigurasi](#instalasi--konfigurasi)
-* [🚀 11. Cara Penggunaan](#cara-penggunaan)
-* [✨ 12. Hasil dan Temuan](#hasil-dan-temuan)
-* [🌱 13. Kontribusi Pengembangan](#kontribusi-pengembangan)
-* [📄 14. Lisensi](#lisensi)
-* [🧑‍💻 15. Tim Pengembang](#tim-pengembang)
-* [🙏 16. Ucapan Terima Kasih (Opsional)](#ucapan-terima-kasih-opsional)
+* 🌟 1. Latar Belakang Masalah
+* 🎯 2. Tujuan Proyek
+* 🛠️ 3. Lingkup Sistem
+* 📊 4. Dataset yang Digunakan
+* 🏗️ 5. Arsitektur Sistem
+* 💻 6. Teknologi yang Digunakan
+* 🗺️ 7. Metodologi Proyek
+* 🔬 8. Kajian Analitik & Fitur Unggulan
+* 📂 9. Struktur Repositori
+    * 📄 9.1. `00_project_documentation/`
+    * 📥 9.2. `01_data_acquisition/`
+    * 🐳 9.3. `02_infrastructure_setup/`
+    * 🔄 9.4. `03_data_processing_pipeline/`
+    * 📈 9.5. `04_exploratory_data_analysis/`
+    * 🧠 9.6. `05_model_development/`
+    * 🖼️ 9.7. `06_visualization_dashboard/`
+    * 🚀 9.8. `07_deployment_and_results/`
+* ⚙️ 10. Instalasi & Konfigurasi
+* 🚀 11. Cara Penggunaan
+* ✨ 12. Hasil dan Temuan
+* 🌱 13. Kontribusi Pengembangan
+* 📄 14. Lisensi
+* 🧑‍💻 15. Tim Pengembang
+* 🙏 16. Ucapan Terima Kasih 
 ---
 ## 📜 Latar Belakang Masalah
 Kemacetan lalu lintas adalah tantangan signifikan di kota-kota besar seperti Medan, yang disebabkan oleh pertumbuhan kendaraan yang tidak seimbang dengan infrastruktur jalan dan manajemen lalu lintas yang belum optimal. Hal ini berdampak negatif pada mobilitas, ekonomi, konsumsi bahan bakar, polusi, dan kualitas hidup. Data GPS kendaraan menawarkan potensi besar untuk analisis spasial-temporal[cite: 12], namun volumenya yang besar memerlukan pendekatan Big Data.
@@ -387,28 +387,27 @@ Untuk detail lengkap mengenai ketentuan lisensi, silakan merujuk ke file `LICENS
 
 Proyek inovatif ini adalah hasil kerja keras, kolaborasi, dan dedikasi dari tim mahasiswa Program Studi Sains Data, Fakultas Sains, Institut Teknologi Sumatera. Masing-masing anggota tim telah memberikan kontribusi krusial:
 
-* 🌟 **Dwi Ratna Anggraeni** (`122450008`)
-    * *Fokus Utama*: [Contoh: Arsitektur Data & Pipeline ETL, Analisis Spasial-Temporal]
+* 💡 **Dwi Ratna Anggraeni** (`122450008`)
+    * *Fokus Utama*: Arsitektur Data & Pipeline ETL, Analisis Spasial-Temporal
     * *Kontribusi Signifikan*: Merancang arsitektur Medallion yang efisien dan mengembangkan skrip Spark untuk transformasi data dari Bronze ke Gold layer, serta memimpin analisis pola kemacetan.
 
-* 🚀 **Febiya Jomy Pratiwi** (`122450074`)
-    * *Fokus Utama*: [Contoh: Pengembangan Model Machine Learning, Konfigurasi Infrastruktur]
+* 💡 **Febiya Jomy Pratiwi** (`122450074`)
+    * *Fokus Utama*: Pengembangan Model Machine Learning, Konfigurasi Infrastruktur
     * *Kontribusi Signifikan*: Mengimplementasikan dan melakukan tuning model prediksi Random Forest menggunakan Spark MLlib, serta memastikan setup lingkungan Docker berjalan optimal.
 
 * 💡 **Residen Nusantara R M** (`122450080`)
-    * *Fokus Utama*: [Contoh: Akuisisi Data & Pembersihan Awal, Visualisasi Dashboard]
+    * *Fokus Utama*: Akuisisi Data & Pembersihan Awal, Visualisasi Dashboard
     * *Kontribusi Signifikan*: Bertanggung jawab atas proses ingesti data GPS dan cuaca, melakukan validasi data awal, dan merancang dashboard interaktif di Apache Superset.
 
-* ✨ **Fayyaza Aqila S A** (`122450131`)
-    * *Fokus Utama*: [Contoh: Dokumentasi Teknis & Manajemen Proyek, Pengujian Sistem]
+* 💡 **Fayyaza Aqila S A** (`122450131`)
+    * *Fokus Utama*: Dokumentasi Teknis & Manajemen Proyek, Pengujian Sistem
     * *Kontribusi Signifikan*: Menyusun dokumentasi proyek yang komprehensif, mengelola repositori GitHub, dan memastikan proses pengujian sistem berjalan sesuai rencana.
 
 **Dibimbing dengan Penuh Dedikasi oleh:**
-* 👨‍🏫 **Ardika Satria, S.Si., M.Si.** *(Pastikan gelar sudah benar)*
+* 👨‍🏫 **Ardika Satria, S.Si., M.Si.** 
     * Dosen Pembimbing Mata Kuliah Big Data, Program Studi Sains Data, ITERA.
 
 Kami bangga dengan sinergi dan pencapaian tim dalam mewujudkan proyek ini.
-
 ---
 ## 🙏 Ucapan Terima Kasih
 
