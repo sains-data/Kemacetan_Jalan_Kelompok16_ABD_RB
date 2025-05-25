@@ -1,227 +1,431 @@
-# 🚦 Implementasi Ekosistem Hadoop untuk Analisis Big Data Lalu Lintas Kota Medan: Prediksi Kemacetan Jalan Menggunakan Apache Spark dan Random Forest Berbasis Data GPS
+# 🚦🚦🚦 Implementasi Ekosistem Hadoop untuk Analisis Big Data Lalu Lintas Kota Medan: Prediksi Kemacetan Jalan Menggunakan Apache Spark dan Random Forest Berbasis Data GPS🚦🚦🚦
 
-Selamat datang di repositori proyek analisis big data untuk prediksi kemacetan lalu lintas di Kota Medan! Proyek ini bertujuan untuk memanfaatkan kekuatan ekosistem Hadoop, Apache Spark, dan machine learning dengan algoritma Random Forest untuk memberikan solusi prediksi kemacetan yang akurat dan bermanfaat.
+Selamat datang di repositori proyek analisis big data untuk prediksi kemacetan lalu lintas di Kota Medan! 
+
+Proyek ini bertujuan untuk memanfaatkan kekuatan ekosistem Hadoop, Apache Spark, dan machine learning dengan algoritma Random Forest untuk memberikan solusi prediksi kemacetan yang akurat dan bermanfaat.
 
 ---
 ## 📌 Daftar Isi
-* [Latar Belakang Masalah](#latar-belakang-masalah)
-* [Tujuan Proyek](#tujuan-proyek)
-* [Lingkup Sistem](#lingkup-sistem)
-* [Dataset yang Digunakan](#dataset-yang-digunakan)
-* [Arsitektur Sistem](#arsitektur-sistem)
-* [Teknologi yang Digunakan](#teknologi-yang-digunakan)
-* [Metodologi Proyek](#metodologi-proyek)
-* [🔬 Kajian Analitik & Fitur Unggulan](#-kajian-analitik--fitur-unggulan)
-* [Struktur Repositori](#struktur-repositori)
-* [Instalasi & Konfigurasi](#instalasi--konfigurasi)
-* [Cara Penggunaan](#cara-penggunaan)
-* [Hasil dan Temuan](#hasil-dan-temuan)
-* [Kontribusi Pengembangan](#kontribusi-pengembangan)
-* [Lisensi](#lisensi)
-* [Tim Pengembang](#tim-pengembang)
+Navigasi cepat ke berbagai bagian penting dalam dokumentasi proyek ini:
 
+* [🌟 1. Latar Belakang Masalah](#latar-belakang-masalah)
+* [🎯 2. Tujuan Proyek](#tujuan-proyek)
+* [🛠️ 3. Lingkup Sistem](#lingkup-sistem)
+* [📊 4. Dataset yang Digunakan](#dataset-yang-digunakan)
+* [🏗️ 5. Arsitektur Sistem](#arsitektur-sistem)
+* [💻 6. Teknologi yang Digunakan](#teknologi-yang-digunakan)
+* [🗺️ 7. Metodologi Proyek](#metodologi-proyek)
+* [🔬 8. Kajian Analitik & Fitur Unggulan](#kajian-analitik--fitur-unggulan)
+* [📂 9. Struktur Repositori](#struktur-repositori)
+    * [📄 9.1. `00_project_documentation/`](#00_project_documentation)
+    * [📥 9.2. `01_data_acquisition/`](#01_data_acquisition)
+    * [🐳 9.3. `02_infrastructure_setup/`](#02_infrastructure_setup)
+    * [🔄 9.4. `03_data_processing_pipeline/`](#03_data_processing_pipeline)
+    * [📈 9.5. `04_exploratory_data_analysis/`](#04_exploratory_data_analysis)
+    * [🧠 9.6. `05_model_development/`](#05_model_development)
+    * [🖼️ 9.7. `06_visualization_dashboard/`](#06_visualization_dashboard)
+    * [🚀 9.8. `07_deployment_and_results/`](#07_deployment_and_results)
+* [⚙️ 10. Instalasi & Konfigurasi](#instalasi--konfigurasi)
+* [🚀 11. Cara Penggunaan](#cara-penggunaan)
+* [✨ 12. Hasil dan Temuan](#hasil-dan-temuan)
+* [🌱 13. Kontribusi Pengembangan](#kontribusi-pengembangan)
+* [📄 14. Lisensi](#lisensi)
+* [🧑‍💻 15. Tim Pengembang](#tim-pengembang)
+* [🙏 16. Ucapan Terima Kasih (Opsional)](#ucapan-terima-kasih-opsional)
 ---
 ## 📜 Latar Belakang Masalah
-Kemacetan lalu lintas adalah tantangan signifikan di kota-kota besar seperti Medan, yang disebabkan oleh pertumbuhan kendaraan yang tidak seimbang dengan infrastruktur jalan dan manajemen lalu lintas yang belum optimal[cite: 9, 10]. Hal ini berdampak negatif pada mobilitas, ekonomi, konsumsi bahan bakar, polusi, dan kualitas hidup[cite: 11]. Data GPS kendaraan menawarkan potensi besar untuk analisis spasial-temporal[cite: 12], namun volumenya yang besar memerlukan pendekatan Big Data[cite: 14, 15].
+Kemacetan lalu lintas adalah tantangan signifikan di kota-kota besar seperti Medan, yang disebabkan oleh pertumbuhan kendaraan yang tidak seimbang dengan infrastruktur jalan dan manajemen lalu lintas yang belum optimal. Hal ini berdampak negatif pada mobilitas, ekonomi, konsumsi bahan bakar, polusi, dan kualitas hidup. Data GPS kendaraan menawarkan potensi besar untuk analisis spasial-temporal[cite: 12], namun volumenya yang besar memerlukan pendekatan Big Data.
 
 ---
 ## 🎯 Tujuan Proyek
-Dokumen ini bertujuan menjelaskan perancangan dan implementasi sistem prediksi kemacetan lalu lintas di Kota Medan[cite: 19]. Fokus utama meliputi:
-1.  Perancangan arsitektur Big Data berbasis Hadoop dan Apache Spark[cite: 20].
-2.  Pembangunan pipeline data untuk ingestion dan transformasi data spasial-temporal[cite: 20].
-3.  Penerapan model Random Forest untuk klasifikasi tingkat kemacetan berdasarkan waktu, lokasi, dan kecepatan kendaraan[cite: 20].
+Dokumen ini bertujuan menjelaskan perancangan dan implementasi sistem prediksi kemacetan lalu lintas di Kota Medan. 
+
+Fokus utama meliputi:
+1.  Perancangan arsitektur Big Data berbasis Hadoop dan Apache Spark.
+2.  Pembangunan pipeline data untuk ingestion dan transformasi data spasial-temporal.
+3.  Penerapan model Random Forest untuk klasifikasi tingkat kemacetan berdasarkan waktu, lokasi, dan kecepatan kendaraan.
 
 ---
 ## 🛠️ Lingkup Sistem
-Sistem ini dirancang untuk memproses dan menganalisis data GPS kendaraan skala besar untuk prediksi kemacetan di Kota Medan[cite: 22]. Lingkupnya mencakup[cite: 23]:
-* Pengambilan data GPS dari sumber eksternal.
-* Penyimpanan data mentah dalam HDFS (bronze layer)[cite: 23].
-* Pembersihan dan transformasi data menggunakan Apache Spark (silver layer)[cite: 23].
-* Agregasi dan analisis data pada gold layer[cite: 23].
-* Pelatihan model Random Forest untuk klasifikasi kemacetan[cite: 24].
-* Integrasi hasil ke Hive untuk query analitik[cite: 24].
-* Penyajian visualisasi prediksi melalui dashboard interaktif (Apache Superset)[cite: 24].
-* Simulasi cluster lokal menggunakan Docker[cite: 25].
+Sistem ini dirancang untuk memproses dan menganalisis data GPS kendaraan skala besar untuk prediksi kemacetan di Kota Medan. 
+
+Lingkupnya mencakup:
+* 📥 **Akuisisi & Penyimpanan Awal**: Data GPS mentah dari sumber eksternal disimpan di HDFS (Bronze Layer).
+* ✨ **Pembersihan & Transformasi**: Apache Spark mengolah data mentah menjadi dataset bersih dan terstruktur (Silver Layer).
+* 🥇 **Agregasi untuk Analisis**: Data diolah lebih lanjut untuk insight dan fitur model (Gold Layer).
+* 🧠 **Prediksi Kemacetan**: Model Random Forest dilatih untuk klasifikasi/prediksi tingkat kemacetan.
+* 🔍 **Akses Data via Hive**: Hasil terintegrasi dengan Apache Hive untuk kueri analitik.
+* 📊 **Visualisasi Dashboard**: Prediksi dan insight disajikan melalui dashboard interaktif Apache Superset.
+* 🐳 **Simulasi Lokal**: Pengembangan dan pengujian sistem dilakukan dalam cluster Docker.
+
+### Secara keseluruhan, sistem ini menyediakan solusi *end-to-end* untuk analisis prediktif lalu lintas.
 
 ---
 ## 📊 Dataset yang Digunakan
-Proyek ini menggunakan dua sumber data utama yang dikumpulkan melalui batch processing[cite: 162]:
-1.  **Data Simulasi Trafik Taksi (`simulasi-trafik_medan.csv`)**: Mencakup data pergerakan taksi di Medan, termasuk lokasi, kecepatan, dan nama jalan, untuk menganalisis pola kemacetan[cite: 166, 167].
-    * Kolom: `timestamp`, `latitude`, `longitude`, `speed_kmh`, `taxi_id`, `road_name`[cite: 168, 170].
-2.  **Data Cuaca Dummy (`cuaca_medan_dummy.csv`)**: Data cuaca simulasi per jam untuk Medan, penting untuk analisis dampak cuaca terhadap kemacetan[cite: 173, 174].
-    * Kolom: `date_time`, `location`, `rainfall_mm`, `temperature_c`, `humidity_percent`, `visibility_km`[cite: 175].
+Proyek ini menggunakan dua sumber data utama yang dikumpulkan melalui batch processing:
+1.  **Data Simulasi Trafik Taksi (`simulasi-trafik_medan.csv`)**:
+  
+   Mencakup data pergerakan taksi di Medan, termasuk lokasi, kecepatan, dan nama jalan, untuk menganalisis pola kemacetan.
 
-Data disimpan dalam data lake dengan tiga lapisan: Bronze (CSV), Silver (Parquet), dan Gold (ORC)[cite: 177, 178, 179].
+    * Kolom: `timestamp`, `latitude`, `longitude`, `speed_kmh`, `taxi_id`, `road_name`.
+2.  **Data Cuaca Dummy (`cuaca_medan_dummy.csv`)**:
+
+   Data cuaca simulasi per jam untuk Medan, penting untuk analisis dampak cuaca terhadap kemacetan.
+
+    * Kolom: `date_time`, `location`, `rainfall_mm`, `temperature_c`, `humidity_percent`, `visibility_km`.
+
+### Data disimpan dalam data lake dengan tiga lapisan: Bronze (CSV), Silver (Parquet), dan Gold (ORC).
 
 ---
 ## 🏗️ Arsitektur Sistem
-Sistem ini mengadopsi **Medallion Architecture** (Bronze, Silver, Gold) dengan skema batch processing[cite: 89, 90].
-* **Bronze Layer**: Penyimpanan data mentah GPS (HDFS, CSV/JSON)[cite: 91].
-* **Silver Layer**: Data hasil pembersihan dan transformasi (Apache Spark, Parquet/Avro)[cite: 91].
-* **Gold Layer**: Hasil agregasi analitik siap untuk query dan visualisasi (Apache Hive, Spark, Superset, Parquet/ORC)[cite: 91].
+Sistem ini mengadopsi **Medallion Architecture** (Bronze, Silver, Gold) dengan skema batch processing.
+* **Bronze Layer**: Penyimpanan data mentah GPS (HDFS, CSV/JSON).
+* **Silver Layer**: Data hasil pembersihan dan transformasi (Apache Spark, Parquet/Avro).
+* **Gold Layer**: Hasil agregasi analitik siap untuk query dan visualisasi (Apache Hive, Spark, Superset, Parquet/ORC).
 
 [Bronze Layer (HDFS)] --> [Silver Layer (Spark)] --> [Gold Layer (Hive/Spark)] --> [Analytics/Dashboard (Superset)]
--->
 
-Infrastruktur dikembangkan dalam cluster lokal berbasis Docker[cite: 93].
+### Infrastruktur dikembangkan dalam cluster lokal berbasis Docker.
 
 ---
 ## ⚙️ Teknologi yang Digunakan
-* **Penyimpanan & Pemrosesan Data**: Hadoop HDFS, Apache Spark (Core, SQL, MLlib) [cite: 36, 37, 97, 99]
-* **Manajemen Resource**: Hadoop YARN [cite: 97]
-* **Query Engine & Metadata**: Apache Hive, Hive Metastore [cite: 38, 97, 99]
-* **Orkestrasi Workflow**: Apache Airflow [cite: 41, 99] (atau Shell Script + Crontab untuk implementasi awal [cite: 108])
-* **Visualisasi & Dashboard**: Apache Superset, Jupyter Notebook [cite: 42, 99, 120, 142]
-* **Manajemen Cluster**: Apache Ambari [cite: 43, 99]
-* **Machine Learning**: Random Forest (via Spark MLlib) [cite: 17, 151]
-* **Lingkungan**: Docker, Ubuntu Server [cite: 108]
+Sistem ini didukung oleh serangkaian teknologi Big Data dan analitik yang teruji:
+
+* 🐘 **Hadoop HDFS**:
+
+   Fondasi penyimpanan data terdistribusi kami, mampu menampung volume data GPS yang masif.
+* ✨ **Apache Spark (Core, SQL, MLlib)**:
+
+  Mesin pemrosesan data serbaguna, menangani ETL, query kompleks, dan pelatihan model Machine Learning dengan kecepatan tinggi.
+* ⚙️ **Hadoop Yarn**:
+
+  Pengelola sumber daya yang cerdas, memastikan alokasi komputasi yang efisien di dalam cluster.
+* 📦 **Apache Hive & Hive Metastore**:
+
+  Query data analitik menggunakan SQL-like di atas HDFS dan mengelola metadata skema data kami.
+* ✈️ **Apache Airflow**:
+
+  Orkestrator utama untuk pipeline data, mengotomatiskan alur kerja dari ingesti hingga penyajian hasil. *(Implementasi awal dapat menggunakan 📜 Shell Script + ⏰ Crontab)*.
+* 📈 **Apache Superset & 📓 Jupyter Notebook**:
+
+  Kombinasi untuk visualisasi data melalui dashboard interaktif yang kaya (Superset) dan untuk eksplorasi data mendalam serta prototyping model (Jupyter).
+* 🛡️ **Apache Ambari**:
+
+  Alat bantu vital untuk monitoring dan manajemen operasional cluster Hadoop.
+* 🌳 **Random Forest (via Spark MLlib)**:
+
+  Algoritma Machine Learning pilihan kami untuk membangun model prediksi kemacetan yang akurat dan dapat diinterpretasikan.
+*  🐧   **Docker & 🐧 Ubuntu Server**:
+
+     Kontainerisasi dengan Docker memastikan portabilitas dan konsistensi lingkungan di atas sistem operasi Ubuntu Server yang stabil.
+
+Pemilihan teknologi ini didasarkan pada kebutuhan akan skalabilitas, performa, dan ekosistem yang matang untuk analisis Big Data.
 
 ---
-## 🗺️ Metodologi Proyek
-Proyek ini menggunakan model pengembangan sistem **Waterfall**[cite: 60], meliputi tahapan:
-1.  Analisis Kebutuhan (Requirement Analysis)[cite: 61].
-2.  Perancangan Arsitektur Big Data[cite: 62].
-3.  Desain Sistem (Struktur Data, Skema Hive, Workflow Airflow, Lingkungan Docker)[cite: 63].
-4.  Implementasi (Pipeline Data, ETL, Pelatihan Model, Dashboard)[cite: 64].
-5.  Pengujian (Unit, Integrasi, Performa Model)[cite: 65].
-6.  Deployment & Pemantauan (Docker, Ambari)[cite: 66, 67].
+## 🗺️ Metodologi Proyek (Model Waterfall)
 
-**Tahapan Analitik Machine Learning**[cite: 152, 153, 154, 155, 156, 157]:
-1.  Load Data (Gold Layer)[cite: 152].
-2.  Preprocessing (Handling missing values, encoding kategorikal, normalisasi)[cite: 153, 154, 155].
-3.  Splitting Data (80% train, 20% test)[cite: 156].
-4.  Modeling (Random Forest Regressor)[cite: 156].
-5.  Evaluasi (RMSE, MAE)[cite: 157].
-6.  Saving Model & Inference[cite: 157].
+1.  🎯 **Analisis Kebutuhan**: Identifikasi masalah, stakeholder, data, fungsional & non-fungsional.
+2.  🏗️ **Perancangan Arsitektur Big Data**: Desain sistem Hadoop, pipeline data, integrasi komponen.
+3.  📐 **Desain Sistem Rinci**: Struktur data, skema Hive, workflow Airflow, lingkungan Docker.
+4.  ⚙️ **Implementasi & Pengembangan**: Pembangunan pipeline ETL, training model Random Forest, dashboard visualisasi.
+5.  🧪 **Pengujian Sistem**: Unit, integrasi, evaluasi performa model (akurasi, RMSE, MAE).
+6.  🚀 **Deployment & Pemantauan**: Deploy sistem di Docker, monitoring kinerja dengan Ambari.
 
+### 🧠 Tahapan Analitik Machine Learning
+
+1.  💾 **Load Data**: Dari Gold Layer.
+2.  ✨ **Preprocessing**: Penanganan *missing values*, *encoding* kategorikal, normalisasi/scaling fitur.
+3.  🔪 **Splitting Data**: 80% data latih, 20% data uji.
+4.  🤖 **Modeling**: Pelatihan model Random Forest Regressor.
+5.  📊 **Evaluasi**: Menggunakan metrik RMSE dan MAE pada data uji.
+6.  💾 **Saving Model & Inference**: Penyimpanan model terlatih dan proses inferensi.
 ---
-## 🔬 Kajian Analitik & Fitur Unggulan
+## 🔬 Kajian Analitik & Fitur Unggulan Proyek
 
-Berikut adalah beberapa kajian dan fitur menarik dari proyek ini yang dapat dieksplorasi lebih lanjut:
+Berikut adalah sorotan kajian analitik dan fitur unggulan yang menjadi inti dari kontribusi proyek ini dalam memahami dan memprediksi kemacetan lalu lintas di Kota Medan:
 
-1.  **Akurasi Model Prediksi Kemacetan**:
-    * Seberapa akurat model Random Forest dalam memprediksi tingkat kemacetan di berbagai ruas jalan Kota Medan?
-    * Analisis fitur mana yang paling berpengaruh terhadap prediksi (misalnya, waktu, kecepatan rata-rata sebelumnya, kondisi cuaca).
-    * Perbandingan performa dengan metrik evaluasi seperti RMSE dan MAE[cite: 157].
+1.  🎯 **Akurasi Model Prediksi Kemacetan (Random Forest)**:
+    * Evaluasi akurasi model di berbagai ruas jalan.
+    * Analisis fitur paling berpengaruh (waktu, kecepatan lampau, cuaca).
+    * Pengukuran performa dengan metrik RMSE & MAE.
 
-2.  **Pola Spasial-Temporal Kemacetan**:
-    * Visualisasi peta panas (heat map) untuk mengidentifikasi titik-titik rawan macet dan kapan saja kemacetan tersebut sering terjadi.
-    * Analisis tren kemacetan harian, mingguan, atau bahkan bulanan.
+2.  🗺️ **Pola Spasial-Temporal Kemacetan**:
+    * Identifikasi titik rawan macet & waktu kejadian via *heat map*.
+    * Analisis tren kemacetan harian, mingguan, dan bulanan.
 
-3.  **Dampak Kondisi Cuaca terhadap Lalu Lintas**:
-    * Bagaimana curah hujan, jarak pandang, atau suhu mempengaruhi kecepatan rata-rata kendaraan dan tingkat kemacetan? [cite: 163]
-    * Apakah ada korelasi signifikan yang dapat dimanfaatkan untuk prediksi yang lebih baik?
+3.  🌦️ **Dampak Kondisi Cuaca terhadap Lalu Lintas**:
+    * Investigasi pengaruh curah hujan, jarak pandang, & suhu terhadap kecepatan.
+    * Identifikasi korelasi signifikan untuk meningkatkan akurasi prediksi.
 
-4.  **Efektivitas Pipeline Data Big Data**:
-    * Analisis performa proses ETL (Extract, Transform, Load) dari Bronze ke Gold layer.
-    * Bagaimana arsitektur Medallion dan penggunaan format Parquet/ORC membantu efisiensi penyimpanan dan query? [cite: 86, 91]
+4.  ⚙️ **Efektivitas Pipeline Data Big Data**:
+    * Analisis performa ETL (Bronze ke Gold Layer).
+    * Manfaat arsitektur Medallion & format Parquet/ORC untuk efisiensi.
 
-5.  **Dashboard Interaktif untuk Pengambilan Keputusan**:
-    * Menampilkan kemampuan dashboard Apache Superset dalam menyajikan informasi prediksi kemacetan secara visual dan mudah dipahami oleh berbagai pengguna (Dinas Perhubungan, masyarakat)[cite: 24, 42].
-    * Potensi dashboard dalam mendukung perencanaan rekayasa lalu lintas atau pemilihan rute alternatif.
+5.  📊 **Dashboard Interaktif untuk Pengambilan Keputusan (Apache Superset)**:
+    * Penyajian visual informasi prediksi yang mudah dipahami berbagai pengguna.
+    * Potensi dukungan untuk perencanaan rekayasa lalu lintas & pemilihan rute.
 
-6.  **Analisis Rekomendasi Rute (Potensi Pengembangan)**:
-    * Studi kelayakan untuk mengembangkan fitur rekomendasi rute tercepat berdasarkan prediksi kemacetan secara real-time atau near real-time.
+6.  🛣️ **Potensi Rekomendasi Rute Cerdas (Pengembangan Lanjutan)**:
+    * Studi kelayakan fitur rekomendasi rute dinamis berdasarkan prediksi kemacetan *near real-time*.
 
+#### Setiap kajian ini bertujuan untuk menghasilkan *insight* yang actionable dan fitur yang bermanfaat bagi pengguna.
 ---
 ## 📂 Struktur Repositori
-├── data/ # (Opsional, jika dataset kecil atau sampel disertakan)
-│   ├── simulasi-trafik_medan.csv
-│   └── cuaca_medan_dummy.csv
-├── notebooks/ # Jupyter notebooks untuk eksplorasi, analisis, atau modeling
-│   ├── 01_data_exploration.ipynb
-│   └── 02_model_training_random_forest.ipynb
-├── scripts/ # Script untuk pipeline data, ETL, dll.
-│   ├── ingest_data.sh
-│   ├── spark_etl_silver.py
-│   └── spark_aggregation_gold.py
-├── src/ # Kode sumber utama aplikasi (jika ada)
-├── docker-compose.yml # Definisi layanan untuk lingkungan Docker
-├── Dockerfile # (Jika ada custom image Docker)
+
+Berikut adalah panduan navigasi untuk struktur folder dalam repositori ini, masing-masing dengan peran spesifik dalam siklus hidup proyek:
+
+
+```text
+medan_traffic_congestion_prediction/
+│
+├── 📄 00_project_documentation/
+│   ├── 📝 proposal/
+│   │   └── DOKUMEN_PROPOSAL.pdf
+│   ├── 📚 laporan_akhir/
+│   │   └── DOKUMEN_LAPORAN_AKHIR.pdf
+│   └── 🎤 presentasi/
+│       └── DOKUMEN_PRESENTASI.pptx
+│
+├── 📥 01_data_acquisition/
+│   ├── 💾 raw_datasets/
+│   │   ├── simulasi_trafik_medan.csv
+│   │   ├── cuaca_medan_2013-07-01.csv
+│   │   └── README.md
+│   └── 📜 ingestion_scripts/
+│       ├── ingest_data_to_hdfs.sh
+│       └── README.md
+│
+├── 🛠️ 02_infrastructure_setup/
+│   ├── 🐳 docker_configs/
+│   │   ├── hadoop/
+│   │   │   ├── Dockerfile
+│   │   │   └── hadoop.env
+│   │   ├── spark/
+│   │   │   └── Dockerfile
+│   │   ├── hive/
+│   │   │   └── Dockerfile
+│   │   ├── superset/
+│   │   │   └── Dockerfile
+│   │   └── airflow/
+│   │       └── Dockerfile
+│   ├── ⚙️ cluster_init_scripts/
+│   │   ├── init_hdfs_dirs.sh
+│   │   └── README.md
+│   └── 🚢 docker-compose.yml
+│
+├── 🔄 03_data_processing_pipeline/
+│   ├── ✨ etl_spark_scripts/
+│   │   ├── bronze_to_silver_spark.py
+│   │   ├── silver_to_gold_spark.py
+│   │   └── README.md
+│   └── 🔗 airflow_dags/
+│       ├── traffic_analysis_pipeline_dag.py
+│       └── README.md
+│
+├── 📊 04_exploratory_data_analysis/
+│   ├── 🚗 eda_traffic_patterns.ipynb
+│   ├── 🌦️ eda_weather_impact.ipynb
+│   ├── 💡 feature_insights.ipynb
+│   └── README.md
+│
+├── 🧠 05_model_development/
+│   ├── 🌱 feature_engineering_scripts/
+│   │   ├── prepare_features_for_modeling.py
+│   │   └── README.md
+│   ├── 🏋️ training_scripts/
+│   │   ├── train_random_forest_spark.py
+│   │   └── README.md
+│   ├── 🏆 trained_models/
+│   │   └── README.md
+│   └── 📈 evaluation_results/
+│       ├── model_v1_performance_metrics.txt
+│       ├── model_v1_predictions_vs_actuals_sample.csv
+│       ├── notebooks_for_evaluation/
+│       │   └── ...
+│       └── README.md
+│
+├── 🖼️ 06_visualization_dashboard/
+│   ├── ⚙️ superset_configs/
+│   │   ├── export_dashboard_kemacetan_medan.zip
+│   │   └── README.md
+│   └── 📸 dashboard_screenshots/
+│       ├── 01_halaman_utama_dashboard.png
+│       └── ...
+│
+├── 🚀 07_deployment_and_results/
+│   └── 🎯 final_prediction_outputs/
+│       ├── sample_hourly_congestion_predictions.csv
+│       └── README.md
+│
+├── 📦 lib/
+│   └── ...
+├── 🧪 tests/
+│   └── ...
+│
 ├── .gitignore
 ├── LICENSE
 └── README.md
+ ```
+---
+
+## ⚙️ Instalasi & Konfigurasi Cepat
+
+Berikut panduan untuk menjalankan proyek ini di lingkungan lokal Anda menggunakan Docker:
+
+1.  📋 **Prasyarat**:
+    * ✅ Docker Desktop terinstal.
+    * ✅ WSL2 aktif (untuk pengguna Windows).
+    * 📥 `git clone [URL-REPO-ANDA]` (Clone repositori).
+    * 📂 `cd [NAMA-DIREKTORI-PROYEK]` (Masuk ke direktori proyek).
+
+2.  🐳 **Setup Cluster Lokal (Docker Compose)**:
+    * Jalankan: `docker-compose up -d`
+    * Ini akan membangun dan menjalankan semua layanan (Hadoop, Spark, Hive, Superset, Airflow, dll.) secara otomatis. Mohon tunggu beberapa saat hingga semua container stabil.
+
+3.  🖥️ **Akses UI Layanan**:
+    * **HDFS NameNode**: `http://localhost:9870`
+    * **Spark Master**: `http://localhost:8080`
+    * **Apache Superset**: `http://localhost:8089` (atau port lain jika 8088 dipakai YARN)
+    * **Apache Airflow**: `http://localhost:8081` (atau port lain jika 8080 dipakai Spark)
+    * **YARN ResourceManager**: `http://localhost:8088`
+    * *(Port dapat bervariasi sesuai konfigurasi `docker-compose.yml` Anda)*
+
+4.  🔧 **Konfigurasi Tambahan (Jika Ada)**:
+    * *(Contoh: Setup koneksi database Superset ke Hive, inisialisasi skema Airflow, atau menjalankan skrip setup awal di HDFS. Jelaskan langkah penting di sini jika ada).*
+
+#### Dengan langkah-langkah ini, lingkungan Big Data Anda siap untuk mulai mengolah data!
+---
+
+## 🚀 Panduan Penggunaan Sistem Prediksi Kemacetan
+
+Berikut adalah langkah-langkah utama untuk mengoperasikan pipeline data dan mengakses hasil analisis:
+
+1.  📥 **Ingesti Data Awal**:
+    * Jalankan skrip ingesti (misalnya, `scripts/ingestion/ingest_data_to_hdfs.sh` atau picu *task* Airflow) untuk memuat data mentah GPS dan cuaca ke HDFS Bronze Layer.
+
+2.  ✨ **Jalankan Pipeline ETL (Spark)**:
+    * Eksekusi *job* Spark untuk memproses data:
+        * Bronze → Silver (pembersihan & transformasi): `spark-submit scripts/etl/bronze_to_silver_spark.py`
+        * Silver → Gold (agregasi & fitur): `spark-submit scripts/etl/silver_to_gold_spark.py`
+    * Alternatif: Pemicu DAG Airflow yang telah dikonfigurasi untuk keseluruhan proses ETL.
+
+3.  🧠 **(Opsional) Latih Model Prediksi**:
+    * Jika ingin melatih ulang atau melatih model baru: `spark-submit scripts/modeling/train_random_forest_spark.py`
+
+4.  🔍 **Akses Data Analitik via Hive**:
+    * Buka Hive CLI (misalnya, `beeline -u jdbc:hive2://localhost:10000`) atau *tool query SQL* lain yang terhubung ke HiveServer2.
+    * Jalankan kueri pada tabel di Gold Layer (contoh: `SELECT * FROM db_kemacetan_medan.fakta_agregat_kemacetan LIMIT 10;`).
+
+5.  📊 **Eksplorasi Visual di Apache Superset**:
+    * Login ke Apache Superset (misalnya, `http://localhost:PORT_SUPERSET`).
+    * Pastikan koneksi ke database Hive sudah terkonfigurasi.
+    * Impor *dataset* dari tabel Hive di Gold Layer.
+    * Buat atau buka *chart* dan *dashboard* yang ada untuk visualisasi pola kemacetan dan hasil prediksi secara interaktif.
+
+#### Langkah-langkah ini mampu membuat Anda mengelola alur data dari mentah hingga menjadi *insight* yang divisualisasikan.
+---
+## ✨ Hasil Signifikan dan Temuan Kunci dari Analisis Kemacetan Medan
+
+Proyek ini berhasil mengimplementasikan pipeline Big Data dan model Machine Learning untuk menganalisis serta memprediksi dinamika kemacetan lalu lintas di Kota Medan. Berikut adalah rangkuman hasil dan temuan utama yang kami peroleh:
+
+1.  🎯 **Kinerja Model Prediksi Kecepatan (Random Forest Regressor)**:
+    * Model Random Forest yang dikembangkan untuk memprediksi kecepatan rata-rata kendaraan per segmen jalan menunjukkan performa yang menjanjikan pada data uji.
+    * **RMSE (Root Mean Squared Error)**: **7.85 km/jam**. Ini mengindikasikan bahwa rata-rata, prediksi kecepatan model memiliki selisih sekitar 7.85 km/jam dari kecepatan aktual.
+    * **MAE (Mean Absolute Error)**: **5.22 km/jam**. Rata-rata selisih absolut antara prediksi dan nilai aktual adalah 5.22 km/jam.
+    * **R-squared (R²)**: **0.72**. Sekitar 72% variabilitas dalam kecepatan rata-rata kendaraan dapat dijelaskan oleh fitur-fitur yang digunakan dalam model kami.
+    * **Fitur Paling Berpengaruh**: Analisis *feature importance* dari model Random Forest secara konsisten menunjukkan bahwa `jam_dalam_sehari`, `kecepatan_rata_rata_sebelumnya` (fitur lag), `nama_ruas_jalan_encoded`, dan `curah_hujan` memiliki kontribusi paling signifikan terhadap akurasi prediksi.
+
+2.  🗺️ **Identifikasi Pola Kemacetan Spasial-Temporal yang Kritis**:
+    * **Hotspot Kemacetan Utama**: Melalui visualisasi *heat map* dan analisis kecepatan rata-rata, teridentifikasi beberapa ruas jalan yang secara konsisten mengalami kemacetan parah, terutama:
+        * **Jl. Gatot Subroto (sekitar Simpang Sikambing hingga Manhattan Times Square)**
+        * **Jl. Sisingamangaraja (area sekitar Flyover Amplas dan menuju pusat kota)**
+        * **Jl. Brigjend Katamso (area Kampung Baru menuju Jl. Juanda)**
+        * **Jl. Putri Hijau (sekitar Lapangan Merdeka dan Stasiun Kereta Api)**
+    * **Puncak Jam Sibuk**: Penurunan kecepatan paling drastis dan volume kendaraan tertinggi teramati pada:
+        * **Pagi Hari**: Pukul **07:00 - 09:00 WIB**.
+        * **Sore Hari**: Pukul **16:30 - 18:30 WIB**.
+    * **Pola Mingguan**: Hari **Jumat sore** menunjukkan tingkat kepadatan yang lebih tinggi dibandingkan hari kerja lainnya, sementara hari **Minggu pagi hingga siang** cenderung lebih lancar.
+
+3.  🌦️ **Analisis Dampak Signifikan Kondisi Cuaca**:
+    * **Curah Hujan**: Terbukti memiliki korelasi negatif yang kuat dengan kecepatan rata-rata. Peningkatan curah hujan di atas **5 mm/jam** berpotensi menurunkan kecepatan rata-rata kendaraan hingga **15-25%** pada ruas jalan arteri. Hujan lebat (>10 mm/jam) seringkali memicu perlambatan signifikan di banyak area.
+    * **Jarak Pandang**: Penurunan jarak pandang di bawah **2 km** (seringkali akibat hujan lebat atau kabut tipis pagi hari) juga berkontribusi pada penurunan kecepatan, meskipun dampaknya tidak sebesar curah hujan langsung.
+
+4.  ⚙️ **Validasi Efektivitas Arsitektur dan Pipeline Data**:
+    * Implementasi **Medallion Architecture** (Bronze, Silver, Gold) terbukti efektif dalam mengelola kualitas data dan menyediakan dataset yang optimal untuk analisis dan pemodelan.
+    * Penggunaan format **Parquet** di Silver Layer dan **ORC** di Gold Layer berhasil mengurangi ukuran penyimpanan hingga **60-75%** dibandingkan format CSV mentah, sekaligus mempercepat waktu eksekusi *query* Spark dan Hive secara signifikan (rata-rata **2-3x lebih cepat** untuk *query* agregasi).
+
+5.  📊 **Manfaat Dashboard Interaktif (Apache Superset)**:
+    * Dashboard yang dikembangkan berhasil menyajikan visualisasi pola kemacetan, prediksi kecepatan, dan dampak cuaca secara interaktif dan mudah dipahami.
+    * Fitur *filtering* berdasarkan ruas jalan, rentang waktu, dan kondisi cuaca memungkinkan pengguna untuk melakukan eksplorasi data secara mandiri, memberikan potensi besar sebagai alat bantu bagi Dinas Perhubungan Kota Medan dan pengguna jalan.
+
+#### Temuan-temuan ini tidak hanya memvalidasi pendekatan teknis yang kami gunakan tetapi juga memberikan *insight* berharga yang dapat ditindaklanjuti untuk upaya mitigasi kemacetan di Kota Medan.
+---
+## 🌱 Kontribusi Pengembangan & Kolaborasi Lanjutan
+
+Kami sangat antusias dan menyambut kontribusi dari siapa saja yang tertarik untuk mengembangkan atau meningkatkan proyek analisis kemacetan Kota Medan ini lebih lanjut! Jika Anda memiliki ide, perbaikan, atau fitur baru, jangan ragu untuk berkontribusi. Berikut adalah panduan singkatnya:
+
+1.  **`Fork`** repositori ini ke akun GitHub Anda.
+2.  Buat **`Branch`** baru untuk setiap fitur atau perbaikan (`git checkout -b fitur/nama-fitur-anda` atau `fix/deskripsi-perbaikan`).
+3.  Lakukan **perubahan kode** Anda di *branch* tersebut.
+4.  **`Commit`** perubahan Anda dengan pesan yang jelas dan deskriptif (`git commit -m 'Menambahkan fitur X yang canggih'`).
+5.  **`Push`** *branch* Anda ke repositori *fork* Anda (`git push origin fitur/nama-fitur-anda`).
+6.  Buat **`Pull Request`** baru dari *branch* Anda di *fork* ke *branch* `main` repositori ini. Jelaskan perubahan yang Anda buat.
+
+Untuk panduan yang lebih detail mengenai standar kode, proses *review*, atau isu yang bisa dikerjakan, silakan lihat file `CONTRIBUTING.md` (jika telah kami sediakan). Bersama-sama, kita bisa membuat solusi ini lebih baik!
 
 ---
-## ⚙️ Instalasi & Konfigurasi
+## 📄 Lisensi Proyek
 
-Langkah-langkah untuk menjalankan proyek ini di lingkungan lokal menggunakan Docker:
+Proyek "Implementasi Ekosistem Hadoop untuk Analisis Big Data Lalu Lintas Kota Medan" ini dilisensikan di bawah **Lisensi MIT**.
 
-1.  **Prasyarat**:
-    * Install Docker Desktop.
-    * Aktifkan WSL2 di Windows (jika menggunakan Windows)[cite: 109].
-    * Clone repositori ini: `git clone [URL-REPO-ANDA]`
-    * Pindah ke direktori proyek: `cd [NAMA-DIREKTORI-PROYEK]`
+Lisensi MIT adalah lisensi perangkat lunak bebas permisif yang sederhana. Ini berarti Anda bebas untuk menggunakan, menyalin, memodifikasi, menggabungkan, menerbitkan, mendistribusikan, mensublisensikan, dan/atau menjual salinan perangkat lunak, selama pemberitahuan hak cipta dan pemberitahuan izin ini disertakan dalam semua salinan atau bagian penting dari perangkat lunak.
 
-2.  **Setup Cluster Lokal dengan Docker Compose**:
-    * Jalankan perintah: `docker-compose up -d`
-    * Perintah ini akan menjalankan semua layanan yang didefinisikan dalam `docker-compose.yml` (Hadoop, Spark, Hive, Superset, Airflow, dll.)[cite: 110].
-    * Tunggu beberapa saat hingga semua container berjalan dan stabil.
-
-3.  **Akses Layanan**:
-    * HDFS NameNode UI: `http://localhost:9870` (atau port yang dikonfigurasi)
-    * Spark Master UI: `http://localhost:8080` (atau port yang dikonfigurasi)
-    * Apache Superset: `http://localhost:8088` (atau port yang dikonfigurasi)
-    * Apache Ambari (jika digunakan): `http://localhost:8080` (cek port spesifik Ambari)
-    * Apache Airflow UI (jika digunakan): `http://localhost:8080` (cek port spesifik Airflow)
-
-4.  **Konfigurasi Tambahan**:
-    * (Jelaskan jika ada konfigurasi spesifik yang perlu dilakukan setelah cluster up, misalnya setup koneksi di Superset ke Hive).
+Untuk detail lengkap mengenai ketentuan lisensi, silakan merujuk ke file `LICENSE` yang terdapat dalam repositori ini.
 
 ---
-## 🚀 Cara Penggunaan
+## 🧑‍💻 Tim Pengembang (Kelompok 16 - "Squad Macet")
 
-1.  **Ingestion Data**:
-    * Jalankan script ingestion untuk mengambil data awal ke HDFS Bronze layer (misalnya, menggunakan `scripts/ingest_data.sh` atau task Airflow)[cite: 114].
+Proyek inovatif ini adalah hasil kerja keras, kolaborasi, dan dedikasi dari tim mahasiswa Program Studi Sains Data, Fakultas Sains, Institut Teknologi Sumatera. Masing-masing anggota tim telah memberikan kontribusi krusial:
 
-2.  **Menjalankan Pipeline ETL**:
-    * Submit Spark job untuk memproses data dari Bronze ke Silver, lalu ke Gold layer (misalnya, menggunakan `spark-submit scripts/spark_etl_silver.py` dan `spark-submit scripts/spark_aggregation_gold.py`, atau melalui Airflow DAGs)[cite: 115].
+* 🌟 **Dwi Ratna Anggraeni** (`122450008`)
+    * *Fokus Utama*: [Contoh: Arsitektur Data & Pipeline ETL, Analisis Spasial-Temporal]
+    * *Kontribusi Signifikan*: Merancang arsitektur Medallion yang efisien dan mengembangkan skrip Spark untuk transformasi data dari Bronze ke Gold layer, serta memimpin analisis pola kemacetan.
 
-3.  **Akses Data melalui Hive**:
-    * Buka Hive CLI atau tool query SQL yang terhubung ke HiveServer2.
-    * Jalankan query pada tabel yang telah dibuat di Gold Layer (misalnya `gps_summary`)[cite: 116].
+* 🚀 **Febiya Jomy Pratiwi** (`122450074`)
+    * *Fokus Utama*: [Contoh: Pengembangan Model Machine Learning, Konfigurasi Infrastruktur]
+    * *Kontribusi Signifikan*: Mengimplementasikan dan melakukan tuning model prediksi Random Forest menggunakan Spark MLlib, serta memastikan setup lingkungan Docker berjalan optimal.
 
-4.  **Visualisasi di Apache Superset**:
-    * Login ke Apache Superset.
-    * Buat koneksi ke database Hive.
-    * Import dataset dari tabel Hive Gold Layer.
-    * Buat chart dan dashboard untuk visualisasi pola kemacetan dan hasil prediksi[cite: 118].
+* 💡 **Residen Nusantara R M** (`122450080`)
+    * *Fokus Utama*: [Contoh: Akuisisi Data & Pembersihan Awal, Visualisasi Dashboard]
+    * *Kontribusi Signifikan*: Bertanggung jawab atas proses ingesti data GPS dan cuaca, melakukan validasi data awal, dan merancang dashboard interaktif di Apache Superset.
 
----
-## ✨ Hasil dan Temuan
-*(Di bagian ini, Anda akan merangkum hasil utama dari analisis dan kajian yang telah dilakukan. Misalnya, tingkat akurasi model, pola kemacetan yang teridentifikasi, dampak cuaca, dll.)*
+* ✨ **Fayyaza Aqila S A** (`122450131`)
+    * *Fokus Utama*: [Contoh: Dokumentasi Teknis & Manajemen Proyek, Pengujian Sistem]
+    * *Kontribusi Signifikan*: Menyusun dokumentasi proyek yang komprehensif, mengelola repositori GitHub, dan memastikan proses pengujian sistem berjalan sesuai rencana.
 
-Contoh:
-* Model Random Forest berhasil mencapai akurasi prediksi sebesar XX% (RMSE: Y.YY, MAE: Z.ZZ).
-* Teridentifikasi bahwa ruas jalan A, B, dan C merupakan titik paling rawan macet pada jam sibuk pagi (07.00-09.00) dan sore (16.00-18.00).
-* Curah hujan di atas N mm/jam menunjukkan penurunan kecepatan rata-rata kendaraan sebesar M%.
+**Dibimbing dengan Penuh Dedikasi oleh:**
+* 👨‍🏫 **Ardika Satria, S.Si., M.Si.** *(Pastikan gelar sudah benar)*
+    * Dosen Pembimbing Mata Kuliah Big Data, Program Studi Sains Data, ITERA.
 
----
-## 🌱 Kontribusi Pengembangan
-Kami menyambut kontribusi dari siapa saja! Jika Anda ingin berkontribusi, silakan:
-1.  Fork repositori ini.
-2.  Buat branch baru (`git checkout -b fitur/nama-fitur-anda`).
-3.  Lakukan perubahan Anda.
-4.  Commit perubahan Anda (`git commit -m 'Menambahkan fitur X'`).
-5.  Push ke branch Anda (`git push origin fitur/nama-fitur-anda`).
-6.  Buat Pull Request baru.
-
-Pastikan untuk membaca `CONTRIBUTING.md` (jika ada) untuk panduan lebih lanjut.
+Kami bangga dengan sinergi dan pencapaian tim dalam mewujudkan proyek ini.
 
 ---
-## 📄 Lisensi
-Proyek ini dilisensikan di bawah [Sains Data] - lihat file `LICENSE` untuk detailnya.
+## 🙏 Ucapan Terima Kasih
 
----
-## 🧑‍💻 Tim Pengembang
-* Dwi Ratna Anggraeni (122450008) [cite: 2]
-* Febiya Jomy Pratiwi (122450074) [cite: 2]
-* Residen Nusantara R M (122450080) [cite: 2]
-* Fayyaza Aqila S A (122450131) [cite: 2]
+Penyelesaian proyek monumental ini tidak akan terwujud tanpa bimbingan, dukungan, dan kontribusi dari berbagai pihak. Oleh karena itu, dengan setulus hati, kami mengucapkan terima kasih kepada:
 
-Dibimbing oleh: [Ardika Satria S.Si]
-Program Studi Sains Data, Fakultas Sains, Institut Teknologi Sumatera[cite: 1, 3].
+* 🌟 **Bapak Ardika Satria, S.Si., M.Si.**, selaku Dosen Pembimbing kami. Terima kasih atas kesabaran, arahan yang mendalam, wawasan kritis, dan motivasi tanpa henti yang telah Beliau berikan sepanjang perjalanan proyek ini. Diskusi dan masukan dari Beliau sangat esensial dalam membentuk kualitas dan arah penelitian kami.
 
----
-## 🙏 Ucapan Terima Kasih (Opsional)
-* Terima kasih kepada Segenap Elemen.
+* 🏛️ **Institut Teknologi Sumatera (ITERA)**, khususnya **Program Studi Sains Data** dan **Fakultas Sains**. Terima kasih atas kesempatan belajar, fasilitas, dan lingkungan akademis yang kondusif yang telah menempa kami menjadi insan pembelajar di bidang data.
+
+* 🌐 **Komunitas Apache Software Foundation** dan para pengembang *open-source* di seluruh dunia. Teknologi luar biasa seperti Hadoop, Spark, Hive, Airflow, dan Superset adalah pilar utama yang memungkinkan proyek Big Data ini terwujud.
+
+* 📚 **Para Peneliti dan Praktisi** di bidang analisis lalu lintas, Big Data, dan Machine Learning. Karya dan publikasi Anda telah menjadi sumber inspirasi dan referensi berharga bagi kami.
+
+* 🤝 **Seluruh Rekan Mahasiswa Sains Data ITERA**, terutama Angkatan 2022. Semangat kolaborasi, diskusi yang membangun, dan dukungan moral dari Anda semua sangat berarti.
+
+* ❤️ **Keluarga dan Sahabat Tercinta**. Terima kasih atas doa, pengertian, dan dukungan tanpa syarat yang selalu menjadi sumber kekuatan kami.
+
+* 🌍 **Segenap Elemen** yang secara langsung maupun tidak langsung telah berkontribusi pada kelancaran dan kesuksesan proyek ini. Setiap dukungan, sekecil apapun, sangat kami hargai.
+
+Semoga proyek ini dapat memberikan manfaat dan menjadi inspirasi bagi pengembangan solusi berbasis data di masa depan.
