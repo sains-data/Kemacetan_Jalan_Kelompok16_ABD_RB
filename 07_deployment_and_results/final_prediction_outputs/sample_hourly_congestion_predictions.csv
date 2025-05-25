@@ -1,0 +1,17 @@
+prediction_timestamp,road_name,predicted_avg_speed_kmh,predicted_congestion_level
+2025-05-26 07:00:00,Jl. Gatot Subroto - Simp. Sikambing,18.5,Padat
+2025-05-26 07:00:00,Jl. Sisingamangaraja - Flyover Amplas,22.1,Padat
+2025-05-26 07:00:00,Jl. Jenderal Sudirman - Tugu Adipura,30.5,Cukup Padat
+2025-05-26 07:00:00,Jl. Putri Hijau - Depan TVRI,25.0,Padat
+2025-05-26 08:00:00,Jl. Gatot Subroto - Simp. Sikambing,15.2,Sangat Padat
+2025-05-26 08:00:00,Jl. Sisingamangaraja - Flyover Amplas,19.8,Padat
+2025-05-26 08:00:00,Jl. Jenderal Sudirman - Tugu Adipura,25.6,Cukup Padat
+2025-05-26 08:00:00,Jl. Putri Hijau - Depan TVRI,20.1,Padat
+2025-05-26 09:00:00,Jl. Gatot Subroto - Simp. Sikambing,23.0,Padat
+2025-05-26 09:00:00,Jl. Sisingamangaraja - Flyover Amplas,28.7,Cukup Padat
+2025-05-26 09:00:00,Jl. Jenderal Sudirman - Tugu Adipura,35.1,Lancar
+2025-05-26 09:00:00,Jl. Putri Hijau - Depan TVRI,30.0,Cukup Padat
+2025-05-26 17:00:00,Jl. Gatot Subroto - Simp. Sikambing,12.5,Sangat Padat
+2025-05-26 17:00:00,Jl. Sisingamangaraja - Flyover Amplas,17.3,Padat
+2025-05-26 17:00:00,Jl. Jenderal Sudirman - Tugu Adipura,22.0,Padat
+2025-05-26 17:00:00,Jl. Putri Hijau - Depan TVRI,18.8,Padat
