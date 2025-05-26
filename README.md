@@ -17,14 +17,14 @@ Navigasi cepat ke berbagai bagian penting dalam dokumentasi proyek ini:
 * 🗺️ 7. Metodologi Proyek
 * 🔬 8. Kajian Analitik & Fitur Unggulan
 * 📂 9. Struktur Repositori
-    * 📄 9.1. `00_project_documentation/`
-    * 📥 9.2. `01_data_acquisition/`
-    * 🐳 9.3. `02_infrastructure_setup/`
-    * 🔄 9.4. `03_data_processing_pipeline/`
-    * 📈 9.5. `04_exploratory_data_analysis/`
-    * 🧠 9.6. `05_model_development/`
-    * 🖼️ 9.7. `06_visualization_dashboard/`
-    * 🚀 9.8. `07_deployment_and_results/`
+    * 📄 9.1. `00_project_documentation`
+    * 📥 9.2. `01_data_acquisition`
+    * 🐳 9.3. `02_infrastructure_setup`
+    * 🔄 9.4. `03_data_processing_pipeline`
+    * 📈 9.5. `04_exploratory_data_analysis`
+    * 🧠 9.6. `05_model_development`
+    * 🖼️ 9.7. `06_visualization_dashboard`
+    * 🚀 9.8. `07_deployment_and_results`
 * ⚙️ 10. Instalasi & Konfigurasi
 * 🚀 11. Cara Penggunaan
 * ✨ 12. Hasil dan Temuan
