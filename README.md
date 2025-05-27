@@ -30,8 +30,6 @@ Lingkupnya mencakup:
 * 📊 **Visualisasi Dashboard**: Prediksi dan insight disajikan melalui dashboard interaktif Apache Superset.
 * 🐳 **Simulasi Lokal**: Pengembangan dan pengujian sistem dilakukan dalam cluster Docker.
 
-### Secara keseluruhan, sistem ini menyediakan solusi *end-to-end* untuk analisis prediktif lalu lintas.
-
 ---
 ## 📊 Dataset yang Digunakan
 Proyek ini menggunakan dua sumber data utama yang dikumpulkan melalui batch processing:
@@ -46,8 +44,6 @@ Proyek ini menggunakan dua sumber data utama yang dikumpulkan melalui batch proc
 
     * Kolom: `date_time`, `location`, `rainfall_mm`, `temperature_c`, `humidity_percent`, `visibility_km`.
 
-### Data disimpan dalam data lake dengan tiga lapisan: Bronze (CSV), Silver (Parquet), dan Gold (ORC).
-
 ---
 ## 🏗️ Arsitektur Sistem
 Sistem ini mengadopsi **Medallion Architecture** (Bronze, Silver, Gold) dengan skema batch processing.
@@ -56,11 +52,6 @@ Sistem ini mengadopsi **Medallion Architecture** (Bronze, Silver, Gold) dengan s
 * **Gold Layer**: Hasil agregasi analitik siap untuk query dan visualisasi (Apache Hive, Spark, Superset, Parquet/ORC).
 
 [Bronze Layer (HDFS)] --> [Silver Layer (Spark)] --> [Gold Layer (Hive/Spark)] --> [Analytics/Dashboard (Superset)]
-
-
-
-
-### Infrastruktur dikembangkan dalam cluster lokal berbasis Docker.
 
 ---
 ## ⚙️ Teknologi yang Digunakan
@@ -93,8 +84,6 @@ Sistem ini didukung oleh serangkaian teknologi Big Data dan analitik yang teruji
 *  🐧   **Docker & 🐧 Ubuntu Server**:
 
      Kontainerisasi dengan Docker memastikan portabilitas dan konsistensi lingkungan di atas sistem operasi Ubuntu Server yang stabil.
-
-Pemilihan teknologi ini didasarkan pada kebutuhan akan skalabilitas, performa, dan ekosistem yang matang untuk analisis Big Data.
 
 ---
 ## 🗺️ Metodologi Proyek (Model Waterfall)
@@ -142,8 +131,6 @@ Berikut adalah sorotan kajian analitik dan fitur unggulan yang menjadi inti dari
 
 6.  🛣️ **Potensi Rekomendasi Rute Cerdas (Pengembangan Lanjutan)**:
     * Studi kelayakan fitur rekomendasi rute dinamis berdasarkan prediksi kemacetan *near real-time*.
-
-#### Setiap kajian ini bertujuan untuk menghasilkan *insight* yang actionable dan fitur yang bermanfaat bagi pengguna.
 ---
 ## 📂 Struktur Repositori
 
@@ -255,7 +242,7 @@ Berikut panduan untuk menjalankan proyek ini di lingkungan lokal Anda menggunaka
 
 2.  🐳 **Setup Cluster Lokal (Docker Compose)**:
     * Jalankan: `docker-compose up -d`
-    * Ini akan membangun dan menjalankan semua layanan (Hadoop, Spark, Hive, Superset, Airflow, dll.) secara otomatis. Mohon tunggu beberapa saat hingga semua container stabil.
+    * membangun dan menjalankan semua layanan (Hadoop, Spark, Hive, Superset, Airflow, dll.) secara otomatis. Mohon tunggu beberapa saat hingga semua container stabil.
 
 3.  🖥️ **Akses UI Layanan**:
     * **HDFS NameNode**: `http://localhost:9870`
@@ -263,16 +250,13 @@ Berikut panduan untuk menjalankan proyek ini di lingkungan lokal Anda menggunaka
     * **Apache Superset**: `http://localhost:8089` (atau port lain jika 8088 dipakai YARN)
     * **Apache Airflow**: `http://localhost:8081` (atau port lain jika 8080 dipakai Spark)
     * **YARN ResourceManager**: `http://localhost:8088`
-    * *(Port dapat bervariasi sesuai konfigurasi `docker-compose.yml` Anda)*
+    * *(Port dapat bervariasi sesuai konfigurasi `docker-compose.yml`)*
 
-4.  🔧 **Konfigurasi Tambahan (Jika Ada)**:
-    * *(Contoh: Setup koneksi database Superset ke Hive, inisialisasi skema Airflow, atau menjalankan skrip setup awal di HDFS. Jelaskan langkah penting di sini jika ada).*
-
-#### Dengan langkah-langkah ini, lingkungan Big Data Anda siap untuk mulai mengolah data!
+4.  🔧 **Konfigurasi Tambahan**:
+    * *(Setup koneksi database Superset ke Hive, inisialisasi skema Airflow, atau menjalankan skrip setup awal di HDFS)*
 ---
 
 ## 🚀 Panduan Penggunaan Sistem Prediksi Kemacetan
-
 Berikut adalah langkah-langkah utama untuk mengoperasikan pipeline data dan mengakses hasil analisis:
 
 1.  📥 **Ingesti Data Awal**:
@@ -282,7 +266,7 @@ Berikut adalah langkah-langkah utama untuk mengoperasikan pipeline data dan meng
     * Eksekusi *job* Spark untuk memproses data:
         * Bronze → Silver (pembersihan & transformasi): `spark-submit scripts/etl/bronze_to_silver_spark.py`
         * Silver → Gold (agregasi & fitur): `spark-submit scripts/etl/silver_to_gold_spark.py`
-    * Alternatif: Pemicu DAG Airflow yang telah dikonfigurasi untuk keseluruhan proses ETL.
+   
 
 3.  🧠 **Latih Model Prediksi**:
     * Lakukan pelatihan ulang atau melatih model baru: `spark-submit scripts/modeling/train_random_forest_spark.py`
@@ -296,8 +280,6 @@ Berikut adalah langkah-langkah utama untuk mengoperasikan pipeline data dan meng
     * Pastikan koneksi ke database Hive sudah terkonfigurasi.
     * Impor *dataset* dari tabel Hive di Gold Layer.
     * Buat atau buka *chart* dan *dashboard* yang ada untuk visualisasi pola kemacetan dan hasil prediksi secara interaktif.
-
-#### Langkah-langkah ini mampu membuat Anda mengelola alur data dari mentah hingga menjadi *insight* yang divisualisasikan.
 ---
 ## ✨ Hasil Signifikan dan Temuan Kunci dari Analisis Kemacetan Medan
 
@@ -335,20 +317,6 @@ Proyek ini berhasil mengimplementasikan pipeline Big Data dan model Machine Lear
 
 #### Temuan-temuan ini tidak hanya memvalidasi pendekatan teknis yang kami gunakan tetapi juga memberikan *insight* berharga yang dapat ditindaklanjuti untuk upaya mitigasi kemacetan di Kota Medan.
 ---
-## 🌱 Kontribusi Pengembangan & Kolaborasi Lanjutan
-
-Kami sangat antusias dan menyambut kontribusi dari siapa saja yang tertarik untuk mengembangkan atau meningkatkan proyek analisis kemacetan Kota Medan ini lebih lanjut! Jika Anda memiliki ide, perbaikan, atau fitur baru, jangan ragu untuk berkontribusi. Berikut adalah panduan singkatnya:
-
-1.  **`Fork`** repositori ini ke akun GitHub Anda.
-2.  Buat **`Branch`** baru untuk setiap fitur atau perbaikan (`git checkout -b fitur/nama-fitur-anda` atau `fix/deskripsi-perbaikan`).
-3.  Lakukan **perubahan kode** Anda di *branch* tersebut.
-4.  **`Commit`** perubahan Anda dengan pesan yang jelas dan deskriptif (`git commit -m 'Menambahkan fitur X yang canggih'`).
-5.  **`Push`** *branch* Anda ke repositori *fork* Anda (`git push origin fitur/nama-fitur-anda`).
-6.  Buat **`Pull Request`** baru dari *branch* Anda di *fork* ke *branch* `main` repositori ini. Jelaskan perubahan yang Anda buat.
-
-Untuk panduan yang lebih detail mengenai standar kode, proses *review*, atau isu yang bisa dikerjakan, silakan lihat file `CONTRIBUTING.md` (jika telah kami sediakan). Bersama-sama, kita bisa membuat solusi ini lebih baik!
-
----
 ## 📄 Lisensi Proyek
 
 Proyek "Implementasi Ekosistem Hadoop untuk Analisis Big Data Lalu Lintas Kota Medan" ini dilisensikan di bawah **Lisensi MIT**.
@@ -381,8 +349,6 @@ Proyek inovatif ini adalah hasil kerja keras, kolaborasi, dan dedikasi dari tim 
 **Dibimbing dengan Penuh Dedikasi oleh:**
 * 👨‍🏫 **Ardika Satria, S.Si., M.Si.** 
     * Dosen Pembimbing Mata Kuliah Big Data, Program Studi Sains Data, ITERA.
-
-Kami bangga dengan sinergi dan pencapaian tim dalam mewujudkan proyek ini.
 ---
 ## 🙏 Ucapan Terima Kasih
 
