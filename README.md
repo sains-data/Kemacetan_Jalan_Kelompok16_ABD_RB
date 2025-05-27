@@ -85,6 +85,9 @@ Sistem ini mengadopsi **Medallion Architecture** (Bronze, Silver, Gold) dengan s
 
 [Bronze Layer (HDFS)] --> [Silver Layer (Spark)] --> [Gold Layer (Hive/Spark)] --> [Analytics/Dashboard (Superset)]
 
+
+
+
 ### Infrastruktur dikembangkan dalam cluster lokal berbasis Docker.
 
 ---
