@@ -1,0 +1,226 @@
+version: '3.8'
+
+services:
+  # ZooKeeper untuk koordinasi
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zk-data:/var/lib/zookeeper/data
+      - zk-logs:/var/lib/zookeeper/log
+    networks:
+      - hadoop_network
+    mem_limit: 512m
+
+  # Hadoop NameNode: Master node untuk HDFS.
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    hostname: namenode
+    container_name: namenode
+    ports:
+      - "9870:9870" # HDFS Web UI
+      - "9000:9000" # Port default HDFS
+    environment:
+      - CLUSTER_NAME=traffic-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+    volumes:
+      - namenode-data:/hadoop/dfs/name
+      - ./configs/hadoop:/opt/hadoop/etc/hadoop:ro
+    networks:
+      - hadoop_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9870"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    mem_limit: 1G
+
+  # Hadoop DataNode (Single Node): Penyimpanan blok data GPS.
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    hostname: datanode
+    container_name: datanode
+    ports:
+      - "9864:9864" # DataNode Web UI (Opsional)
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+    volumes:
+      - datanode-data:/hadoop/dfs/data
+      - ./configs/hadoop:/opt/hadoop/etc/hadoop:ro
+    networks:
+      - hadoop_network
+    depends_on:
+      namenode:
+        condition: service_healthy
+    mem_limit: 1.5G
+
+  # YARN ResourceManager: Penjadwalan job Spark.
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    hostname: resourcemanager
+    container_name: resourcemanager
+    ports:
+      - "8089:8088" # YARN Web UI
+    environment:
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+    volumes:
+      - ./configs/hadoop:/opt/hadoop/etc/hadoop:ro
+    networks:
+      - hadoop_network
+    depends_on:
+      namenode:
+        condition: service_healthy
+    mem_limit: 1G
+
+  # YARN NodeManager (Single Node): Menjalankan task Spark.
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    hostname: nodemanager
+    container_name: nodemanager
+    ports:
+      - "8042:8042" # NodeManager Web UI (Opsional)
+    environment:
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_nodemanager_resource_memory___mb=2048
+      - YARN_CONF_yarn_nodemanager_resource_cpu___vcores=2
+    volumes:
+      - ./configs/hadoop:/opt/hadoop/etc/hadoop:ro
+    networks:
+      - hadoop_network
+    depends_on:
+      - resourcemanager
+    mem_limit: 2G
+
+  # PostgreSQL for Hive Metastore: Database untuk menyimpan metadata tabel Hive.
+  postgres-hive-metastore-db:
+    image: postgres:13
+    hostname: postgres-hive-metastore-db
+    container_name: postgres-hive-metastore-db
+    environment:
+      POSTGRES_DB: metastore
+      POSTGRES_USER: hiveuser
+      POSTGRES_PASSWORD: hivepassword
+    volumes:
+      - postgres-hive-metastore-db-data:/var/lib/postgresql/data
+    networks:
+      - hadoop_network
+    mem_limit: 512m
+
+  # Hive Metastore Service: Layanan yang mengelola metadata tabel Hive.
+  hive-metastore:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    hostname: hive-metastore
+    container_name: hive-metastore
+    ports:
+      - "9083:9083" # Port default Metastore Thrift
+    environment:
+      - HIVE_METASTORE_URI=thrift://hive-metastore:9083
+    volumes:
+      - ./configs/hive:/opt/hive/conf:ro
+    networks:
+      - hadoop_network
+    depends_on:
+      - namenode
+      - postgres-hive-metastore-db
+    mem_limit: 1G
+
+  # HiveServer2: Menyediakan antarmuka JDBC/ODBC untuk koneksi BI tools (seperti Superset).
+  hiveserver2:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    hostname: hiveserver2
+    container_name: hiveserver2
+    ports:
+      - "10000:10000"
+      - "10002:10002" # Hive Web UI
+    environment:
+      - HIVE_METASTORE_URI=thrift://hive-metastore:9083
+    volumes:
+      - ./configs/hive:/opt/hive/conf:ro
+    networks:
+      - hadoop_network
+    depends_on:
+      - hive-metastore
+      - namenode
+    mem_limit: 1.5G
+
+  # Spark Master: Koordinator job Spark batch.
+  spark-master:
+    image: bde2020/spark-master:3.0.0-hadoop3.2
+    hostname: spark-master
+    container_name: spark-master
+    ports:
+      - "8080:8080" # Spark Master Web UI
+      - "7077:7077" # Port komunikasi Spark Master
+    volumes:
+      - ./scripts:/opt/spark-apps # Skrip Spark akan diakses dari sini
+      - ./data:/data_input # Data input akan dibaca dari sini
+      - ./output:/output_data # Data output akan ditulis ke sini
+      - ./configs/spark:/opt/spark/conf:ro # Mount konfigurasi Spark
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+      - HIVE_METASTORE_URI=thrift://hive-metastore:9083
+    networks:
+      - hadoop_network
+    depends_on:
+      - namenode
+      - hiveserver2
+    mem_limit: 1.5G
+
+  # Spark Worker (Single Node): Menjalankan task transformasi dan analitik Spark.
+  spark-worker:
+    image: bde2020/spark-worker:3.0.0-hadoop3.2
+    hostname: spark-worker
+    container_name: spark-worker
+    ports:
+      - "8082:8081" # Spark Worker UI
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1 # Batasi core CPU worker
+      - SPARK_WORKER_MEMORY=2g # Batasi memori worker
+    volumes:
+      - ./configs/spark:/opt/spark/conf:ro # Mount konfigurasi Spark Worker
+    networks:
+      - hadoop_network
+    depends_on:
+      - spark-master
+    mem_limit: 2.5G
+
+  # Apache Superset: Visualisasi prediksi kemacetan.
+  # Menggunakan konfigurasi SQLite internal untuk database Superset itu sendiri.
+  superset:
+    image: apache/superset:3.0.1
+    hostname: superset
+    container_name: superset_app
+    ports:
+      - "8088:8088" # Superset Web UI
+    volumes:
+      - superset_home:/app/superset_home # Volume persisten untuk home Superset
+    environment:
+      SUPERSET_SECRET_KEY: "KUNCI_RAHASIA_SUPERSET_ANDA_YANG_SANGAT_AMAN" # **PENTING: Ubah ini!**
+    networks:
+      - hadoop_network
+    depends_on:
+      hiveserver2:
+        condition: service_started
+    command: ["/bin/sh", "-c", "superset db upgrade && superset fab create-admin --username superset --password superset --firstname Superset --lastname User --email superset@example.com || true && superset init && superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger"]
+    restart: unless-stopped
+    mem_limit: 2.5G
+
+volumes:
+  zk-data:
+  zk-logs:
+  namenode-data:
+  datanode-data:
+  postgres-hive-metastore-db-data:
+  superset_home:
+  airflow_db_data: # Volume ini tetap ada, tapi tidak digunakan oleh layanan aktif
+  
+networks:
+  hadoop_network:
+    driver: bridge

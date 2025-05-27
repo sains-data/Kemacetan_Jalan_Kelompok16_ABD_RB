@@ -1,0 +1,16 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+.ipynb_checkpoints/ # Untuk Jupyter notebooks
+
+# Docker
+.env
+logs/
+output/ # Jika ada output yang dihasilkan kontainer (misal, Spark job)
+
+# macOS (untuk pengguna Mac, jika Anda atau kolaborator menggunakannya)
+.DS_Store
+
+# Windows (untuk pengguna Windows)
+Thumbs.db

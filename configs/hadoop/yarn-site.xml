@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>resourcemanager</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>2048</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>256</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>2048</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>2</value>
+    </property>
+    <property>
+        <name>yarn.application.classpath</name>
+        <value>
+            $HADOOP_CONF_DIR,
+            $HADOOP_COMMON_HOME/share/hadoop/common/*,
+            $HADOOP_COMMON_HOME/share/hadoop/common/lib/*,
+            $HADOOP_HDFS_HOME/share/hadoop/hdfs/*,
+            $HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,
+            $HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*,
+            $HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*,
+            $HADOOP_YARN_HOME/share/hadoop/yarn/*,
+            $HADOOP_YARN_HOME/share/hadoop/yarn/lib/*
+        </value>
+    </property>
+</configuration>
