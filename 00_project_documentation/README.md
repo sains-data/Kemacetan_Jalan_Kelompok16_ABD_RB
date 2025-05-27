@@ -18,7 +18,12 @@ Setiap subfolder di dalam `00_project_documentation` dirancang untuk memandu And
     * **Jantung Inovasi**: Di sini tersimpan proposal penelitian awal yang merinci justifikasi masalah, tujuan ambisius, landasan teoretis yang kokoh, dan rancangan metodologi yang cermat. Ini adalah cetak biru yang mengarahkan visi dan eksekusi proyek.
     * *Temukan di sini*: Pemahaman mendalam tentang mengapa proyek ini penting dan bagaimana kami berencana untuk mengatasi tantangan yang ada.
 
-
 * **`laporan_akhir`**:
     * **Karya Tuntas**: Merupakan kulminasi dari seluruh upaya proyek, menyajikan dokumentasi teknis dan analitik yang paling detail. Dari spesifikasi arsitektur, implementasi pipeline data, pengembangan model, hingga analisis hasil dan validasi temuan.
     * *Temukan di sini*: Bukti implementasi, analisis
+      
+* **`presentasi/`**:
+    * **🖼️ Visualisasi Esensi Proyek**: Folder ini menyimpan **Poster Infografis** kami. Berbeda dari slide tradisional, poster ini menyajikan intisari proyek, metodologi kunci, temuan paling berdampak, dan arsitektur sistem dalam satu kanvas visual yang menarik dan mudah dicerna. Ideal untuk pameran, sesi poster, atau sebagai ringkasan cepat bagi stakeholder.
+    * *Temukan di sini*: Alur cerita visual yang kuat, ikonografi yang relevan, visualisasi data yang menonjol (miniatur grafik/dashboard), dan teks ringkas yang merangkum kontribusi utama proyek. Aset ini bertujuan untuk memikat perhatian dan menyampaikan informasi kompleks secara sederhana.
+
+Kami mengundang Anda untuk menjelajahi dokumen-dokumen ini untuk mendapatkan pemahaman yang komprehensif mengenai dedikasi, ketelitian, dan inovasi yang telah kami curahkan dalam upaya memberikan solusi berbasis data untuk tantangan kemacetan lalu lintas di Kota Medan.
