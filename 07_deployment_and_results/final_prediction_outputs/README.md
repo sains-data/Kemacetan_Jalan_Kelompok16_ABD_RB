@@ -1,4 +1,4 @@
-## 🎯 Contoh Nyata: Sampel Output Prediksi Kemacetan dari Model
+## 🎯 Sampel Output Prediksi Kemacetan dari Model
 
 Folder ini berisi sampel data output yang dihasilkan oleh model prediksi kemacetan Random Forest. Output ini merepresentasikan jenis informasi yang dapat diekspor atau disajikan kepada pengguna setelah proses inferensi model pada data baru atau data historis untuk periode tertentu.
 
