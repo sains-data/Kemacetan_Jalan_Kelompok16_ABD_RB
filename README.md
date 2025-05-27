@@ -5,34 +5,6 @@ Selamat datang di repositori proyek analisis big data untuk prediksi kemacetan l
 Proyek ini bertujuan untuk memanfaatkan kekuatan ekosistem Hadoop, Apache Spark, dan machine learning dengan algoritma Random Forest untuk memberikan solusi prediksi kemacetan yang akurat dan bermanfaat.
 
 ---
-## 📌 Daftar Isi
-Navigasi cepat ke berbagai bagian penting dalam dokumentasi proyek ini:
-
-* 🌟 1. Latar Belakang Masalah
-* 🎯 2. Tujuan Proyek
-* 🛠️ 3. Lingkup Sistem
-* 📊 4. Dataset yang Digunakan
-* 🏗️ 5. Arsitektur Sistem
-* 💻 6. Teknologi yang Digunakan
-* 🗺️ 7. Metodologi Proyek
-* 🔬 8. Kajian Analitik & Fitur Unggulan
-* 📂 9. Struktur Repositori
-    * 📄 9.1. `00_project_documentation`
-    * 📥 9.2. `01_data_acquisition`
-    * 🐳 9.3. `02_infrastructure_setup`
-    * 🔄 9.4. `03_data_processing_pipeline`
-    * 📈 9.5. `04_exploratory_data_analysis`
-    * 🧠 9.6. `05_model_development`
-    * 🖼️ 9.7. `06_visualization_dashboard`
-    * 🚀 9.8. `07_deployment_and_results`
-* ⚙️ 10. Instalasi & Konfigurasi
-* 🚀 11. Cara Penggunaan
-* ✨ 12. Hasil dan Temuan
-* 🌱 13. Kontribusi Pengembangan
-* 📄 14. Lisensi
-* 🧑‍💻 15. Tim Pengembang
-* 🙏 16. Ucapan Terima Kasih 
----
 ## 📜 Latar Belakang Masalah
 Kemacetan lalu lintas adalah tantangan signifikan di kota-kota besar seperti Medan, yang disebabkan oleh pertumbuhan kendaraan yang tidak seimbang dengan infrastruktur jalan dan manajemen lalu lintas yang belum optimal. Hal ini berdampak negatif pada mobilitas, ekonomi, konsumsi bahan bakar, polusi, dan kualitas hidup. Data GPS kendaraan menawarkan potensi besar untuk analisis spasial-temporal[cite: 12], namun volumenya yang besar memerlukan pendekatan Big Data.
 
