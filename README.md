@@ -309,8 +309,8 @@ Berikut adalah langkah-langkah utama untuk mengoperasikan pipeline data dan meng
         * Silver → Gold (agregasi & fitur): `spark-submit scripts/etl/silver_to_gold_spark.py`
     * Alternatif: Pemicu DAG Airflow yang telah dikonfigurasi untuk keseluruhan proses ETL.
 
-3.  🧠 **(Opsional) Latih Model Prediksi**:
-    * Jika ingin melatih ulang atau melatih model baru: `spark-submit scripts/modeling/train_random_forest_spark.py`
+3.  🧠 **Latih Model Prediksi**:
+    * Lakukan pelatihan ulang atau melatih model baru: `spark-submit scripts/modeling/train_random_forest_spark.py`
 
 4.  🔍 **Akses Data Analitik via Hive**:
     * Buka Hive CLI (misalnya, `beeline -u jdbc:hive2://localhost:10000`) atau *tool query SQL* lain yang terhubung ke HiveServer2.
